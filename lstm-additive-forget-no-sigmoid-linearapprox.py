@@ -43,21 +43,26 @@ class LSTM_rnn():
             U = tf.get_variable('U', shape=[4, self.state_size, self.state_size], initializer=xav_init())
             # b = tf.get_variable('b', shape=[self.state_size], initializer=tf.constant_initializer(0.))
 
-            def step(prev, x):
+            def sigmoid_approx(tensor):
+                return tf.maximum(0.0,tf.minimum(1.0, 0.125*tensor + 0.5))
+
+            def step_additive_forget_input_no_sigmoid(prev, x):
                 previous_output, previous_state = tf.unstack(prev)
 
-                i = tf.sigmoid(tf.matmul(x,U[0]) + tf.matmul(previous_output,W[0]))
-                f = tf.sigmoid(tf.matmul(x,U[1]) + tf.matmul(previous_output,W[1]))
-                new_state_contrib = tf.tanh(tf.matmul(x,U[3]) + tf.matmul(previous_output,W[3]))
+                # i = tf.sigmoid(tf.matmul(x,U[0]) + tf.matmul(previous_output,W[0]))
+                f = sigmoid_approx(tf.matmul(x,U[1]) + tf.matmul(previous_output,W[1]))
+                i = 1-f
+                new_state_contrib = sigmoid_approx(tf.matmul(x,U[3]) + tf.matmul(previous_output,W[3]))
 
-                new_state = previous_state*f + new_state_contrib*i
+                new_state = tf.nn.relu(previous_state - f) + tf.nn.relu(new_state_contrib - i)
 
-                out_gate = tf.sigmoid(tf.matmul(x,U[2]) + tf.matmul(previous_output,W[2]))
-                output = tf.tanh(new_state)*out_gate
+                out_gate = sigmoid_approx(tf.matmul(x,U[2]) + tf.matmul(previous_output,W[2]))
+                output = sigmoid_approx(new_state)/6.0 - out_gate
 
                 return tf.stack([output, new_state])
 
-            states = tf.scan(step,
+
+            states = tf.scan(step_additive_forget_input_no_sigmoid,
                     tf.transpose(rnn_inputs, [1,0,2]),
                     initializer=init_state)
             
