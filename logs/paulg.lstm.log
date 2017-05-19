@@ -1,0 +1,230 @@
+(keras)skoppula@sls-sm-8:~/lstm-testing/rnn-from-scratch$ CUDA_VISIBLE_DEVICES=1 python lstm.py -t
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.8.0 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcudnn.so.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcufft.so.8.0 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcurand.so.8.0 locally
+('fetched data!!', (119089, 20), (119089, 20))
+
+<log> Building Graph...</log>
+created model!
+starting to train model!
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: TITAN X (Pascal)
+major: 6 minor: 1 memoryClockRate (GHz) 1.531
+pciBusID 0000:03:00.0
+Total memory: 11.90GiB
+Free memory: 11.76GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:03:00.0)
+('Epoch', 0)
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 2370 get requests, put_count=2364 evicted_count=1000 eviction_rate=0.423012 and unsatisfied allocation rate=0.466667
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 100 to 110
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 4732 get requests, put_count=4683 evicted_count=1000 eviction_rate=0.213538 and unsatisfied allocation rate=0.226543
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 256 to 281
+[0] loss : 4.00891742706
+('Epoch', 1)
+[1] loss : 3.16864366055
+('Epoch', 2)
+[2] loss : 3.05922322273
+('Epoch', 3)
+[3] loss : 2.94792115688
+('Epoch', 4)
+[4] loss : 2.81895167112
+('Epoch', 5)
+[5] loss : 2.73880984545
+('Epoch', 6)
+[6] loss : 2.67951710463
+('Epoch', 7)
+[7] loss : 2.64112406254
+('Epoch', 8)
+[8] loss : 2.60418969154
+('Epoch', 9)
+[9] loss : 2.57033764362
+('Epoch', 10)
+[10] loss : 2.54280382395
+('Epoch', 11)
+[11] loss : 2.51457459688
+('Epoch', 12)
+[12] loss : 2.48856331825
+('Epoch', 13)
+[13] loss : 2.45643589258
+('Epoch', 14)
+[14] loss : 2.42789995432
+('Epoch', 15)
+[15] loss : 2.39778287888
+('Epoch', 16)
+[16] loss : 2.36728842735
+('Epoch', 17)
+[17] loss : 2.33876219034
+('Epoch', 18)
+[18] loss : 2.31268985748
+('Epoch', 19)
+[19] loss : 2.28606069803
+('Epoch', 20)
+[20] loss : 2.25911289215
+('Epoch', 21)
+[21] loss : 2.23723709106
+('Epoch', 22)
+[22] loss : 2.2107995224
+('Epoch', 23)
+[23] loss : 2.18832973957
+('Epoch', 24)
+[24] loss : 2.16065084457
+('Epoch', 25)
+[25] loss : 2.14794937134
+('Epoch', 26)
+[26] loss : 2.12471296549
+('Epoch', 27)
+[27] loss : 2.10767787218
+('Epoch', 28)
+[28] loss : 2.08431237698
+('Epoch', 29)
+[29] loss : 2.07055752277
+('Epoch', 30)
+[30] loss : 2.0453493011
+('Epoch', 31)
+[31] loss : 2.02979206085
+('Epoch', 32)
+[32] loss : 2.0131287992
+('Epoch', 33)
+[33] loss : 1.99464532137
+('Epoch', 34)
+[34] loss : 1.98523435354
+('Epoch', 35)
+[35] loss : 1.96903285742
+('Epoch', 36)
+[36] loss : 1.95384748697
+('Epoch', 37)
+[37] loss : 1.93403810143
+('Epoch', 38)
+[38] loss : 1.92085563064
+('Epoch', 39)
+[39] loss : 1.91052954435
+('Epoch', 40)
+[40] loss : 1.89610314608
+('Epoch', 41)
+[41] loss : 1.88923565626
+('Epoch', 42)
+[42] loss : 1.87399016142
+('Epoch', 43)
+[43] loss : 1.8654345727
+('Epoch', 44)
+[44] loss : 1.85592333674
+('Epoch', 45)
+[45] loss : 1.84662411451
+('Epoch', 46)
+[46] loss : 1.83177291751
+('Epoch', 47)
+[47] loss : 1.8212113595
+('Epoch', 48)
+[48] loss : 1.80423159719
+('Epoch', 49)
+[49] loss : 1.79935899496
+('Epoch', 50)
+[50] loss : 1.78924098253
+('Epoch', 51)
+[51] loss : 1.7857049346
+('Epoch', 52)
+[52] loss : 1.77390795946
+('Epoch', 53)
+[53] loss : 1.77316602111
+('Epoch', 54)
+[54] loss : 1.76319443345
+('Epoch', 55)
+[55] loss : 1.75147691727
+('Epoch', 56)
+[56] loss : 1.74366134644
+('Epoch', 57)
+[57] loss : 1.73698378444
+('Epoch', 58)
+[58] loss : 1.73426858902
+('Epoch', 59)
+[59] loss : 1.72351388812
+('Epoch', 60)
+[60] loss : 1.71776007414
+('Epoch', 61)
+[61] loss : 1.70903594136
+('Epoch', 62)
+[62] loss : 1.70509300351
+('Epoch', 63)
+[63] loss : 1.69967608213
+('Epoch', 64)
+[64] loss : 1.68786628485
+('Epoch', 65)
+[65] loss : 1.68738474131
+('Epoch', 66)
+[66] loss : 1.681363132
+('Epoch', 67)
+[67] loss : 1.67133761287
+('Epoch', 68)
+[68] loss : 1.6710920167
+('Epoch', 69)
+[69] loss : 1.66609186053
+('Epoch', 70)
+[70] loss : 1.66498248816
+('Epoch', 71)
+[71] loss : 1.64973971725
+('Epoch', 72)
+[72] loss : 1.64961786628
+('Epoch', 73)
+[73] loss : 1.64323879123
+('Epoch', 74)
+[74] loss : 1.63773279667
+('Epoch', 75)
+[75] loss : 1.63599889755
+('Epoch', 76)
+[76] loss : 1.6315630722
+('Epoch', 77)
+[77] loss : 1.63040148139
+('Epoch', 78)
+[78] loss : 1.62192421675
+('Epoch', 79)
+[79] loss : 1.61684854746
+('Epoch', 80)
+[80] loss : 1.61123703718
+('Epoch', 81)
+[81] loss : 1.60946717381
+('Epoch', 82)
+[82] loss : 1.60880046368
+('Epoch', 83)
+[83] loss : 1.60164969921
+('Epoch', 84)
+[84] loss : 1.60169637442
+('Epoch', 85)
+[85] loss : 1.59817899942
+('Epoch', 86)
+[86] loss : 1.59132781386
+('Epoch', 87)
+[87] loss : 1.58969027996
+('Epoch', 88)
+[88] loss : 1.58867079973
+('Epoch', 89)
+[89] loss : 1.57953662872
+('Epoch', 90)
+[90] loss : 1.57180813551
+('Epoch', 91)
+[91] loss : 1.57119116306
+('Epoch', 92)
+[92] loss : 1.57425898314
+('Epoch', 93)
+[93] loss : 1.56830093265
+('Epoch', 94)
+[94] loss : 1.56775221109
+('Epoch', 95)
+[95] loss : 1.56462242126
+('Epoch', 96)
+[96] loss : 1.55913982868
+('Epoch', 97)
+[97] loss : 1.55929828644
+('Epoch', 98)
+[98] loss : 1.55981643319
+('Epoch', 99)
+[99] loss : 1.55564443231

@@ -120,8 +120,7 @@ class LSTM_rnn():
                 for i in range(epochs):
                     print("Epoch",i)
                     for j in range(100):
-                        print("\tBatch",j)
-                        xs, ys = train_set.__next__()
+                        xs, ys = next(train_set)
                         batch_size = xs.shape[0]
                         _, train_loss_ = sess.run([self.train_op, self.loss], feed_dict = {
                                 self.xs_ : xs,
