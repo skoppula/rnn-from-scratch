@@ -44,7 +44,7 @@ class LSTM_rnn():
             # step - LSTM
             def step(prev, x):
                 # gather previous internal state and output state
-                st_1, ct_1 = tf.unpack(prev)
+                st_1, ct_1 = tf.unstack(prev)
                 ####
                 # GATES
                 #
@@ -61,18 +61,18 @@ class LSTM_rnn():
                 ct = ct_1*f + g*i
                 # output state
                 st = tf.tanh(ct)*o
-                return tf.pack([st, ct])
+                return tf.stack([st, ct])
             ###
             # here comes the scan operation; wake up!
             #   tf.scan(fn, elems, initializer)
-            states = tf.scan(step, 
+            states = tf.scan(step,
                     tf.transpose(rnn_inputs, [1,0,2]),
                     initializer=init_state)
             #
             # predictions
-            V = tf.get_variable('V', shape=[state_size, num_classes], 
+            V = tf.get_variable('V', shape=[state_size, num_classes],
                                 initializer=xav_init())
-            bo = tf.get_variable('bo', shape=[num_classes], 
+            bo = tf.get_variable('bo', shape=[num_classes],
                                  initializer=tf.constant_initializer(0.))
 
             ####
@@ -88,10 +88,10 @@ class LSTM_rnn():
             states_reshaped = tf.reshape(states, [-1, state_size])
             logits = tf.matmul(states_reshaped, V) + bo
             # predictions
-            predictions = tf.nn.softmax(logits) 
+            predictions = tf.nn.softmax(logits)
             #
             # optimization
-            losses = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, ys_)
+            losses = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=ys_)
             loss = tf.reduce_mean(losses)
             train_op = tf.train.AdagradOptimizer(learning_rate=0.1).minimize(loss)
             #
@@ -103,7 +103,7 @@ class LSTM_rnn():
             self.predictions = predictions
             self.last_state = last_state
             self.init_state = init_state
-        ##### 
+        #####
         # build graph
         sys.stdout.write('\n<log> Building Graph...')
         __graph__()
@@ -118,7 +118,9 @@ class LSTM_rnn():
             train_loss = 0
             try:
                 for i in range(epochs):
+                    print("Epoch",i)
                     for j in range(100):
+                        print("\tBatch",j)
                         xs, ys = train_set.__next__()
                         batch_size = xs.shape[0]
                         _, train_loss_ = sess.run([self.train_op, self.loss], feed_dict = {
@@ -132,7 +134,7 @@ class LSTM_rnn():
             except KeyboardInterrupt:
                 print('interrupted by user at ' + str(i))
             #
-            # training ends here; 
+            # training ends here;
             #  save checkpoint
             saver = tf.train.Saver()
             saver.save(sess, self.ckpt_path + self.model_name, global_step=i)
@@ -168,10 +170,10 @@ class LSTM_rnn():
                 #
                 # forward propagation
                 preds, state_ = sess.run([self.predictions, self.last_state], feed_dict=feed_dict)
-                # 
+                #
                 # set flag to true
                 state = True
-                # 
+                #
                 # set new word
                 current_word = np.random.choice(preds.shape[-1], 1, p=np.squeeze(preds))[0]
                 # add to list of words
@@ -180,7 +182,7 @@ class LSTM_rnn():
         # return the list of words as string
         return separator.join([idx2w[w] for w in words])
 
-### 
+###
 # parse arguments
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -204,20 +206,25 @@ if __name__ == '__main__':
     #
     # fetch data
     X, Y, idx2w, w2idx = data.load_data('data/paulg/')
+    print("fetched data!!", X.shape, Y.shape)
     seqlen = X.shape[0]
     #
     # create the model
     model = LSTM_rnn(state_size = 512, num_classes=len(idx2w))
+    print("created model!")
     # to train or to generate?
     if args['train']:
         # get train set
         train_set = utils.rand_batch_gen(X, Y ,batch_size=BATCH_SIZE)
-        #
+
         # start training
+        print("starting to train model!")
         model.train(train_set)
+
+
     elif args['generate']:
         # call generate method
-        text = model.generate(idx2w, w2idx, 
+        text = model.generate(idx2w, w2idx,
                 num_words=args['num_words'] if args['num_words'] else 100,
                 separator='')
         #########
