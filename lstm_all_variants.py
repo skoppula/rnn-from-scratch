@@ -12,7 +12,6 @@ from data import *
 
 BATCH_SIZE = 256
 DATASET = None
-model_name = os.path.basename(__file__).split('.')[0]
 paths = {'sms':['data/sms/','data/sms/sms.txt'],
             'shakespeare':['data/shakespeare/','data/shakespeare/shakespeare.txt'],
             'paulg':['data/paulg/','data/paulg/paulg.txt']}
@@ -20,7 +19,7 @@ paths = {'sms':['data/sms/','data/sms/sms.txt'],
 
 class LSTM_rnn():
 
-    def __init__(self, state_size, num_classes, dataset, variant, model_name=model_name):
+    def __init__(self, state_size, num_classes, dataset, variant, model_name):
         self.state_size = state_size
         self.num_classes = num_classes
         self.ckpt_path = 'ckpt/'+ dataset + '/'
@@ -164,7 +163,7 @@ class LSTM_rnn():
         __graph__()
 
 
-    def train(self, train_set, val_set, num_steps_trn_epoch, num_steps_val_epoch, epochs=1000):
+    def train(self, train_set, val_set, num_steps_trn_epoch, num_steps_val_epoch, epochs=600):
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
 
@@ -193,14 +192,14 @@ class LSTM_rnn():
                             })
                         val_loss += val_loss_
 
+                    if i % 100 == 0:
+                        saver = tf.train.Saver()
+                        saver.save(sess, self.ckpt_path + self.model_name, global_step=i)
                     print("epoch", i, "train_loss:", train_loss/100.0, "val_loss:", val_loss/100.0)
 
 
             except KeyboardInterrupt:
                 print('interrupted by user at ' + str(i))
-
-            saver = tf.train.Saver()
-            saver.save(sess, self.ckpt_path + self.model_name, global_step=i)
 
             
 
@@ -270,7 +269,7 @@ if __name__ == '__main__':
     num_steps_val_epoch = X_test.shape[0]/BATCH_SIZE
     print("num steps in trn and val epochs", num_steps_trn_epoch, num_steps_val_epoch)
 
-    model = LSTM_rnn(state_size = 512, num_classes=len(idx2w), dataset=DATASET, variant=args['variant'])
+    model = LSTM_rnn(state_size = 512, num_classes=len(idx2w), dataset=DATASET, variant=args['variant'], model_name=args['variant'])
     print("created model.")
 
     if args['train']:
