@@ -3,14 +3,6 @@ import numpy as np
 import pickle as pkl
 from sklearn.model_selection import train_test_split
 
-SMS_FILENAME = 'data/sms/sms.txt'
-SHAKESPEARE_FILENAME = 'data/shakespeare/shakespeare.txt'
-PAULG_FILENAME = 'data/paulg/paulg.txt'
-
-SHAKESPEARE_PATH = 'data/shakespeare/'
-SMS_PATH = 'data/sms/'
-PAULG_PATH = 'data/paulg/'
-
 def read_lines_sms(filename):
     with open(filename, 'r') as f:
         reader = csv.reader(f, delimiter='\t')
@@ -64,7 +56,4 @@ def load_data(path):
     y_test = np.load(path + 'test_y.npy')
 
     return X_trn, y_trn, X_test, y_test, metadata['idx2ch'], metadata['ch2idx']
-
-if __name__ == '__main__':
-    process_data(path = PAULG_PATH, filename = PAULG_FILENAME)
 
